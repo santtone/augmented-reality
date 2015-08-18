@@ -22,4 +22,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/beyondar-v0.9.3.jar')
+    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.google.android.gms:play-services:7.8.0'
 }
