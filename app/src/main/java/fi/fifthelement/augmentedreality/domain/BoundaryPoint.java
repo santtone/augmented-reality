@@ -6,9 +6,12 @@ import fi.fifthelement.augmentedreality.R;
 
 public class BoundaryPoint extends GeoObject{
 
-    private int marker = R.drawable.poi_marker_blue;
+    private int marker = R.drawable.boundary_point;
 
-    public BoundaryPoint() {
-        setImageResource(marker);
+    public BoundaryPoint(double latitude, double longitude, long id) {
+        super(id);
+        super.setGeoPosition(latitude, longitude);
+        super.setImageResource(marker);
+        super.setName("Boundary");
     }
 }
