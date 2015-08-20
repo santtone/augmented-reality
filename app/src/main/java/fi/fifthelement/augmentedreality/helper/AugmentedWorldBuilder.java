@@ -16,8 +16,8 @@ public class AugmentedWorldBuilder {
 
     private static AugmentedWorld world;
     private static int defaultMarker = R.drawable.poi_marker_blue;
-    private static double defaultLatitude = 60.869423;//KOUVOLA :)
-    private static double defaultLongitude = 26.704719;
+    private static double defaultLatitude = 60.869132;//KOUVOLA :)
+    private static double defaultLongitude = 26.704516;
 
     public AugmentedWorldBuilder() {
     }
