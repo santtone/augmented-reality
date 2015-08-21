@@ -16,8 +16,8 @@ public class AugmentedWorldBuilder {
 
     private static AugmentedWorld world;
     private static int defaultMarker = R.drawable.poi_marker_blue;
-    private static double defaultLatitude = 60.869132;//KOUVOLA :)
-    private static double defaultLongitude = 26.704516;
+    private static double defaultLatitude = 60.869366;//KOUVOLA :)
+    private static double defaultLongitude = 26.704799;
 
     public AugmentedWorldBuilder() {
     }
@@ -36,7 +36,7 @@ public class AugmentedWorldBuilder {
         }
         world = new AugmentedWorld(context);
         world.setDefaultImage(R.drawable.poi_marker_blue);
-        world.setGeoPosition(defaultLatitude, defaultLongitude);
+        world.setGeoPosition(defaultLatitude, defaultLongitude,76);
 
         for (Area a : areas) {
             world.addArea(a);

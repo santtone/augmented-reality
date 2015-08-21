@@ -39,20 +39,20 @@ public class BoundaryHelper {
     public static List<BoundaryPoint> findPointsBetweenLandmarks(Landmark first, Landmark second) {
         List<BoundaryPoint> points = new ArrayList<>();
 
-        points.add(new BoundaryPoint(first.getLatitude(), first.getLongitude()));
-        points.add(new BoundaryPoint(second.getLatitude(), second.getLongitude()));
+        points.add(new BoundaryPoint(first.getLatitude(), first.getLongitude(), first.getAltitude() - 0.00002));
+        points.add(new BoundaryPoint(second.getLatitude(), second.getLongitude(), second.getAltitude() - 0.00002));
 
         int pointCount = (int) calculateDistanceBetweenLandmarks(first, second) / 2 / 2;
         while (points.size() < pointCount) {
             List<BoundaryPoint> pointsToCompare = new ArrayList<>(points);
             for (int i = 0; i < pointsToCompare.size() - 1; i++) {
-                points.add(2 * i + 1, findMiddlePoint(pointsToCompare.get(i), pointsToCompare.get(i + 1)));
+                points.add(2 * i + 1, findMiddlePoint(pointsToCompare.get(i), pointsToCompare.get(i + 1), first.getAltitude() - 0.00002));
             }
         }
         return new ArrayList<>(points);
     }
 
-    public static BoundaryPoint findMiddlePoint(BoundaryPoint firstPoint, BoundaryPoint secondPoint) {
+    public static BoundaryPoint findMiddlePoint(BoundaryPoint firstPoint, BoundaryPoint secondPoint, double altitude) {
         double dLongitude = Math.toRadians(secondPoint.getLongitude() - firstPoint.getLongitude());
         double latitude1 = Math.toRadians(firstPoint.getLatitude());
         double longitude1 = Math.toRadians(firstPoint.getLongitude());
@@ -63,6 +63,6 @@ public class BoundaryHelper {
                 Math.sin(latitude1) + Math.sin(latitude2),
                 Math.sqrt((Math.cos(latitude1) + bx) * (Math.cos(latitude1) + bx) + by * by));
         double longitude = longitude1 + Math.atan2(by, Math.cos(latitude1) + bx);
-        return new BoundaryPoint(Math.toDegrees(latitude), Math.toDegrees(longitude));
+        return new BoundaryPoint(Math.toDegrees(latitude), Math.toDegrees(longitude), altitude);
     }
 }

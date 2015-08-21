@@ -8,9 +8,9 @@ public class Landmark extends GeoObject {
 
     private int marker = R.drawable.poi_marker_blue;
 
-    public Landmark(double latitude, double longitude, long id) {
-        super(id);
-        super.setGeoPosition(latitude, longitude);
+    public Landmark(double latitude, double longitude, double altitude) {
+        super(999);//Should we use some real and unique id???
+        super.setGeoPosition(latitude, longitude, altitude);
         super.setImageResource(marker);
         super.setName("Landmark");
     }

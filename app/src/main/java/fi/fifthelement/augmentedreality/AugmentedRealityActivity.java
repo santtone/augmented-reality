@@ -29,15 +29,14 @@ public class AugmentedRealityActivity extends FragmentActivity {
                 R.id.augmentedRealityFragment);
 
         List<Landmark> landmarkList = new ArrayList<>(Arrays.asList(
-                new Landmark(60.869558, 26.705222, 11),
-                new Landmark(60.869474, 26.703634, 12),
-                new Landmark(60.868664, 26.703828, 13),
-                new Landmark(60.868758, 26.705415, 14)));
+                new Landmark(60.869558, 26.705222, 75.99990),
+                new Landmark(60.869474, 26.703634, 75.99990),
+                new Landmark(60.868664, 26.703828, 75.99990),
+                new Landmark(60.868758, 26.705415, 75.99990)));
         Area a = new Area(landmarkList);
 
         world = AugmentedWorldBuilder.build(this, new ArrayList<>(Arrays.asList(a)));
         fragment.setWorld(world);
-
         fragment.showFPS(true);
     }
 
