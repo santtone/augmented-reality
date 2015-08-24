@@ -1,14 +1,12 @@
 package fi.fifthelement.augmentedreality;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.MotionEvent;
+import android.support.v4.app.FragmentManager;
 import android.view.Window;
-import android.widget.Toast;
 
-import com.beyondar.android.view.BeyondarGLSurfaceView;
 import com.beyondar.android.view.OnClickBeyondarObjectListener;
-import com.beyondar.android.view.OnTouchBeyondarViewListener;
 import com.beyondar.android.world.BeyondarObject;
 
 import java.util.ArrayList;
@@ -23,16 +21,18 @@ import fi.fifthelement.augmentedreality.utils.Device;
 
 public class AugmentedRealityActivity extends FragmentActivity implements OnClickBeyondarObjectListener {
 
+    FragmentManager fragmentManager;
     private AugmentedRealityFragment fragment;
     private AugmentedWorld world;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
 
-
+        fragmentManager = super.getSupportFragmentManager();
         fragment = (AugmentedRealityFragment) getSupportFragmentManager().findFragmentById(
                 R.id.augmentedRealityFragment);
 
@@ -49,13 +49,15 @@ public class AugmentedRealityActivity extends FragmentActivity implements OnClic
         fragment.setOnClickBeyondarObjectListener(this);
     }
 
+
     @Override
     public void onClickBeyondarObject(ArrayList<BeyondarObject> objects) {
         if (objects.size() > 0) {
             if(Landmark.class.isInstance(objects.get(0))){
                 Landmark l = (Landmark)objects.get(0);
-                System.out.println(l.getName());
                 Device.vibrate(this);
+                LandmarkDialog dialog = LandmarkDialog.newInstance(l);
+                dialog.show(fragmentManager, "landmark_dialog");
             }
         }
     }
