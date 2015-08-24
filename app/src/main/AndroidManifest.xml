@@ -3,8 +3,8 @@
     package="fi.fifthelement.augmentedreality" >
 
     <uses-sdk
-        android:minSdkVersion="22"
-        android:targetSdkVersion="22" />
+        android:minSdkVersion="21"
+        android:targetSdkVersion="21" />
 
     <application
         android:allowBackup="true"
