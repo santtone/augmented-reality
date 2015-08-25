@@ -1,6 +1,5 @@
 package fi.fifthelement.augmentedreality;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +7,7 @@ import android.view.Window;
 
 import com.beyondar.android.view.OnClickBeyondarObjectListener;
 import com.beyondar.android.world.BeyondarObject;
+import com.mikepenz.materialdrawer.Drawer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +17,7 @@ import fi.fifthelement.augmentedreality.domain.AugmentedWorld;
 import fi.fifthelement.augmentedreality.domain.Area;
 import fi.fifthelement.augmentedreality.domain.Landmark;
 import fi.fifthelement.augmentedreality.helper.AugmentedWorldBuilder;
+import fi.fifthelement.augmentedreality.helper.DrawerHandler;
 import fi.fifthelement.augmentedreality.utils.Device;
 
 public class AugmentedRealityActivity extends FragmentActivity implements OnClickBeyondarObjectListener {
@@ -24,6 +25,8 @@ public class AugmentedRealityActivity extends FragmentActivity implements OnClic
     FragmentManager fragmentManager;
     private AugmentedRealityFragment fragment;
     private AugmentedWorld world;
+    private Drawer drawer;
+    private DrawerHandler drawerHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +50,27 @@ public class AugmentedRealityActivity extends FragmentActivity implements OnClic
         fragment.setWorld(world);
         fragment.showFPS(true);
         fragment.setOnClickBeyondarObjectListener(this);
+        drawerHandler = new DrawerHandler(this);
+        this.drawer = drawerHandler.buildDrawer();
     }
 
 
     @Override
     public void onClickBeyondarObject(ArrayList<BeyondarObject> objects) {
         if (objects.size() > 0) {
-            if(Landmark.class.isInstance(objects.get(0))){
-                Landmark l = (Landmark)objects.get(0);
+            if (Landmark.class.isInstance(objects.get(0))) {
+                Landmark l = (Landmark) objects.get(0);
                 Device.vibrate(this);
                 LandmarkDialog dialog = LandmarkDialog.newInstance(l);
                 dialog.show(fragmentManager, "landmark_dialog");
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!drawerHandler.close()) {
+            super.onBackPressed();
         }
     }
 }
