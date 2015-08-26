@@ -1,9 +1,10 @@
 package fi.fifthelement.augmentedreality.helper;
 
-
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -14,17 +15,22 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import fi.fifthelement.augmentedreality.R;
+import fi.fifthelement.augmentedreality.SettingsFragment;
+import fi.fifthelement.augmentedreality.domain.AugmentedWorld;
 
 public class DrawerHandler {
 
+    private AugmentedWorld world;
     private Drawer drawer;
     private FragmentActivity activity;
     private String appName = "Augmented Reality";
     private String companyName = "Fifth Element Oy";
     private Drawable icon;
+    private Fragment activeFragment = null;
 
-    public DrawerHandler(FragmentActivity activity) {
+    public DrawerHandler(FragmentActivity activity, AugmentedWorld world) {
         this.activity = activity;
+        this.world = world;
         icon = activity.getResources().getDrawable(R.drawable.logo);
     }
 
@@ -41,21 +47,52 @@ public class DrawerHandler {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        System.out.println(drawerItem.getIdentifier());
+                        selectedItemChanged(drawerItem.getIdentifier());
                         return true;
                     }
                 })
                 .build();
-
         return drawer;
     }
 
-    public boolean close(){
+    public boolean closeDrawer() {
         if (drawer != null && drawer.isDrawerOpen()) {
             drawer.closeDrawer();
             return true;
         }
         return false;
+    }
+
+    public void removeActiveFragment(){
+        activity.getSupportFragmentManager().beginTransaction().remove(activeFragment).commit();
+    }
+
+    private void selectedItemChanged(int item) {
+
+        if (activeFragment != null)
+            removeActiveFragment();
+
+        Fragment fragment = null;
+
+        try {
+            switch (item) {
+                case 1:
+                    break;
+                case 2:
+                    fragment = SettingsFragment.newInstance(world, activity);
+                    activeFragment = fragment;
+                    break;
+                default:
+                    break;
+            }
+            if (fragment != null) {
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.augmentedRealityFragment, fragment).commit();
+            }
+            closeDrawer();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private AccountHeader buildHeader() {

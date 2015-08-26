@@ -27,4 +27,5 @@ dependencies {
     compile('com.mikepenz:materialdrawer:4.0.0@aar') {
         transitive = true
     }
+    compile files('libs/beyondar-radar-plugin-v0.9.1.jar')
 }

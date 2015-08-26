@@ -1,10 +1,17 @@
 package fi.fifthelement.augmentedreality;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
 import android.view.Window;
+import android.widget.FrameLayout;
 
+import com.beyondar.android.opengl.util.LowPassFilter;
+import com.beyondar.android.plugin.radar.RadarView;
+import com.beyondar.android.plugin.radar.RadarWorldPlugin;
 import com.beyondar.android.view.OnClickBeyondarObjectListener;
 import com.beyondar.android.world.BeyondarObject;
 import com.mikepenz.materialdrawer.Drawer;
@@ -13,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import fi.fifthelement.augmentedreality.domain.AppSettings;
 import fi.fifthelement.augmentedreality.domain.AugmentedWorld;
 import fi.fifthelement.augmentedreality.domain.Area;
 import fi.fifthelement.augmentedreality.domain.Landmark;
@@ -27,6 +35,16 @@ public class AugmentedRealityActivity extends FragmentActivity implements OnClic
     private AugmentedWorld world;
     private Drawer drawer;
     private DrawerHandler drawerHandler;
+
+    public AppSettings getAppSettings() {
+        return appSettings;
+    }
+
+    public void setAppSettings(AppSettings appSettings) {
+        this.appSettings = appSettings;
+    }
+
+    private AppSettings appSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +66,11 @@ public class AugmentedRealityActivity extends FragmentActivity implements OnClic
 
         world = AugmentedWorldBuilder.build(this, new ArrayList<>(Arrays.asList(a)));
         fragment.setWorld(world);
-        fragment.showFPS(true);
         fragment.setOnClickBeyondarObjectListener(this);
-        drawerHandler = new DrawerHandler(this);
+        drawerHandler = new DrawerHandler(this, world);
         this.drawer = drawerHandler.buildDrawer();
+        appSettings = new AppSettings(false, LowPassFilter.ALPHA);
     }
-
 
     @Override
     public void onClickBeyondarObject(ArrayList<BeyondarObject> objects) {
@@ -69,8 +86,8 @@ public class AugmentedRealityActivity extends FragmentActivity implements OnClic
 
     @Override
     public void onBackPressed() {
-        if (!drawerHandler.close()) {
-            super.onBackPressed();
+        if (!drawerHandler.closeDrawer()) {
+            drawerHandler.removeActiveFragment();
         }
     }
 }
