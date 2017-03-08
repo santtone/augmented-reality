@@ -13,6 +13,7 @@ public class LandmarkDialog extends DialogFragment{
 
     private TextView lblDistance;
     private TextView lblLocation;
+    private TextView lblType;
     private Landmark landmark;
 
     static LandmarkDialog newInstance(Landmark landmark) {
@@ -36,10 +37,13 @@ public class LandmarkDialog extends DialogFragment{
         View view = inflater.inflate(R.layout.landmark_dialog, container);
         getDialog().setTitle(landmark.getName());
 
-        lblDistance = (TextView)view.findViewById(R.id.lbl_distance);
-        lblDistance.setText("" + (int)landmark.getDistanceFromUser() + " m");
+        lblDistance = (TextView)view.findViewById(R.id.lblDistance);
+        lblDistance.setText("" + (int) landmark.getDistanceFromUser() + " m");
 
-        lblLocation = (TextView)view.findViewById(R.id.lbl_location);
+        lblType = (TextView)view.findViewById(R.id.lblType);
+        lblType.setText("" + landmark.getType());
+
+        lblLocation = (TextView)view.findViewById(R.id.lblLocation);
         lblLocation.setText(landmark.getLatitude() + ", " + landmark.getLongitude());
 
         return view;

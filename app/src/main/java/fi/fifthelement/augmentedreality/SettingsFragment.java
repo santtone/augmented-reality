@@ -1,7 +1,10 @@
 package fi.fifthelement.augmentedreality;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
+import android.widget.Switch;
 
 import com.beyondar.android.opengl.util.LowPassFilter;
 import com.beyondar.android.plugin.radar.RadarView;
@@ -23,7 +27,7 @@ import fi.fifthelement.augmentedreality.helper.RadarBuilder;
 public class SettingsFragment extends Fragment {
 
     private SeekBar lowPassSeekBar;
-    private CheckBox radarCheckBox;
+    private Switch radarSwitch;
     private AugmentedWorld world;
     private Context context;
 
@@ -60,7 +64,7 @@ public class SettingsFragment extends Fragment {
 
     private void initializeLowPassSeekBar(View view) {
         lowPassSeekBar = (SeekBar) view.findViewById(R.id.lowPassSeekBar);
-        lowPassSeekBar.setProgress((int)(((AugmentedRealityActivity) context).getAppSettings().getLowPassFilterValue() * 1000));
+        lowPassSeekBar.setProgress((int) (((AugmentedRealityActivity) context).getAppSettings().getLowPassFilterValue() * 1000));
         lowPassSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -84,9 +88,9 @@ public class SettingsFragment extends Fragment {
     private RadarWorldPlugin radar;
 
     private void initializeRadar(final View view) {
-        radarCheckBox = (CheckBox) view.findViewById(R.id.radarCheckBox);
-        radarCheckBox.setChecked(((AugmentedRealityActivity) context).getAppSettings().getRadarVisibility());
-        radarCheckBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+        radarSwitch = (Switch) view.findViewById(R.id.radarSwitch);
+        radarSwitch.setChecked(((AugmentedRealityActivity) context).getAppSettings().getRadarVisibility());
+        radarSwitch.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 radar = RadarBuilder.build(context, (RadarView) ((AugmentedRealityActivity) context).findViewById(R.id.radarView));

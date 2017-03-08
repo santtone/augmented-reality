@@ -51,25 +51,26 @@ public class AugmentedRealityActivity extends FragmentActivity implements OnClic
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.main);
+        setContentView(R.layout.augmented_reality);
 
         fragmentManager = super.getSupportFragmentManager();
         fragment = (AugmentedRealityFragment) getSupportFragmentManager().findFragmentById(
                 R.id.augmentedRealityFragment);
 
         List<Landmark> landmarkList = new ArrayList<>(Arrays.asList(
-                new Landmark(60.869558, 26.705222, 75.99990, "Rajapyykki #1"),
-                new Landmark(60.869474, 26.703634, 75.99990, "Rajapyykki #2"),
-                new Landmark(60.868664, 26.703828, 75.99990, "Rajapyykki #3"),
-                new Landmark(60.868758, 26.705415, 75.99990, "Rajapyykki #4")));
+                new Landmark(60.869558, 26.705222, 75.99990, "Rajapyykki no. 1", "Putkipyykki"),
+                new Landmark(60.869474, 26.703634, 75.99990, "Rajapyykki no. 2", "Putkipyykki"),
+                new Landmark(60.868664, 26.703828, 75.99990, "Rajapyykki no. 3", "Putkipyykki"),
+                new Landmark(60.868758, 26.705415, 75.99990, "Rajapyykki no. 4", "Putkipyykki")));
         Area a = new Area(landmarkList);
 
         world = AugmentedWorldBuilder.build(this, new ArrayList<>(Arrays.asList(a)));
         fragment.setWorld(world);
         fragment.setOnClickBeyondarObjectListener(this);
-        drawerHandler = new DrawerHandler(this, world);
-        this.drawer = drawerHandler.buildDrawer();
-        appSettings = new AppSettings(false, LowPassFilter.ALPHA);
+        LowPassFilter.ALPHA = (float)0.017;
+        //drawerHandler = new DrawerHandler(this, world);
+        //this.drawer = drawerHandler.buildDrawer();
+        //appSettings = new AppSettings(false, LowPassFilter.ALPHA);
     }
 
     @Override

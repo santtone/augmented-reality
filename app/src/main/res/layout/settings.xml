@@ -2,39 +2,69 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="14dp"
-    android:background="@color/background_material_light">
-
-    <!--    <fragment
-            android:id="@+id/settingsFragment"
-            android:name="fi.fifthelement.augmentedreality.SettingsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />-->
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="85dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tutka"
-            android:id="@+id/textView3"
-            android:textSize="@dimen/abc_text_size_subhead_material"
-            android:layout_marginBottom="12dp" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Näytä tutka"
-            android:id="@+id/radarCheckBox" />
-    </LinearLayout>
+    android:background="@color/background_material_light"
+    android:weightSum="1">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp" >
+        android:paddingLeft="14dp"
+        android:paddingTop="7dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="7dp"
+        android:layout_marginTop="12dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="263dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tutka"
+                    android:id="@+id/textView4"
+                    android:textColor="@color/abc_primary_text_material_light"
+                    android:textSize="@dimen/abc_text_size_subhead_material" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Näytä tai piilota tutka"
+                    android:id="@+id/textView3"
+                    android:textSize="@dimen/abc_text_size_body_1_material" />
+
+            </LinearLayout>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/radarSwitch"
+                android:enabled="true" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <View style="@style/Divider"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:paddingLeft="14dp"
+        android:paddingTop="7dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="7dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,25 +72,29 @@
             android:text="Kamera"
             android:id="@+id/textView2"
             android:textSize="@dimen/abc_text_size_subhead_material"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/accent_material_light" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/textView"
                 android:text="Herkkyys"
                 android:textSize="@dimen/abc_text_size_subhead_material"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.63" />
 
             <SeekBar
-                android:layout_width="match_parent"
+                android:layout_width="214dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/lowPassSeekBar" />
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

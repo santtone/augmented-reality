@@ -27,5 +27,7 @@ dependencies {
     compile('com.mikepenz:materialdrawer:4.0.0@aar') {
         transitive = true
     }
+    compile 'com.mikepenz:google-material-typeface:1.2.0.1@aar'
     compile files('libs/beyondar-radar-plugin-v0.9.1.jar')
+    compile 'com.android.support:support-v13:23.0.0'
 }

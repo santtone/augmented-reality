@@ -25,4 +25,5 @@ public class AppSettings {
     public void setLowPassFilterValue(float lowPassFilterValue) {
         this.lowPassFilterValue = lowPassFilterValue;
     }
+
 }

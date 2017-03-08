@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -35,8 +36,8 @@ public class DrawerHandler {
     }
 
     public Drawer buildDrawer() {
-        PrimaryDrawerItem cameraView = new PrimaryDrawerItem().withName("Kameranäkymä").withIdentifier(1);
-        PrimaryDrawerItem settings = new PrimaryDrawerItem().withName("Asetukset").withIdentifier(2);
+        PrimaryDrawerItem cameraView = new PrimaryDrawerItem().withName("Kameranäkymä").withIdentifier(1).withIcon(GoogleMaterial.Icon.gmd_camera);
+        PrimaryDrawerItem settings = new PrimaryDrawerItem().withName("Asetukset").withIdentifier(2).withIcon(GoogleMaterial.Icon.gmd_settings);
         drawer = new com.mikepenz.materialdrawer.DrawerBuilder()
                 .withActivity(activity)
                 .withAccountHeader(buildHeader())
